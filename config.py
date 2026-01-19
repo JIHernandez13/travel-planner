@@ -17,12 +17,16 @@ class Settings(BaseSettings):
     ]
     
     # Database
-    DATABASE_URL: str = "postgresql://traveluser:travelpass@localhost:5432/traveldb"
+    # Must be provided via environment variable or .env file
+    DATABASE_URL: str
     
     # Security
-    SECRET_KEY: str = "your-secret-key-change-this-in-production"
+    # Must be provided via environment variable or .env file
+    # Generate using: openssl rand -hex 32
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60  # 60 minutes for access tokens
+    REFRESH_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days for refresh tokens
     
     # Environment
     ENVIRONMENT: str = "development"
