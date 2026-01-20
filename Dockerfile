@@ -19,4 +19,5 @@ COPY . .
 EXPOSE 8000
 
 # Run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Note: For development, override with --reload flag in docker-compose.yml
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

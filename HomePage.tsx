@@ -5,7 +5,8 @@ function HomePage() {
 
   useEffect(() => {
     // Check API connection
-    fetch('http://localhost:8000/')
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+    fetch(`${apiUrl}/`)
       .then(res => res.json())
       .then(data => {
         setApiStatus(`✅ Connected - ${data.message}`)

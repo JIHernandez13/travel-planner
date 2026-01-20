@@ -2,6 +2,29 @@ import axios from 'axios'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
+// TypeScript interfaces for API data types
+export interface TripData {
+  id?: number
+  title: string
+  description?: string
+  destination: string
+  start_date: string
+  end_date: string
+  budget?: number
+  user_id?: number
+}
+
+export interface UserRegistration {
+  email: string
+  username: string
+  password: string
+}
+
+export interface LoginCredentials {
+  username: string
+  password: string
+}
+
 // Create axios instance with default config
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -9,6 +32,10 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 })
+
+// Security Note: localStorage is vulnerable to XSS attacks.
+// For production, consider using httpOnly cookies or implementing
+// Content Security Policy headers to mitigate XSS risks.
 
 // Request interceptor to add auth token
 apiClient.interceptors.request.use(
@@ -39,12 +66,12 @@ apiClient.interceptors.response.use(
 
 // Auth API
 export const authAPI = {
-  register: async (userData: { email: string; username: string; password: string }) => {
+  register: async (userData: UserRegistration) => {
     const response = await apiClient.post('/api/v1/auth/register', userData)
     return response.data
   },
   
-  login: async (credentials: { username: string; password: string }) => {
+  login: async (credentials: LoginCredentials) => {
     const response = await apiClient.post('/api/v1/auth/login', credentials)
     if (response.data.access_token) {
       localStorage.setItem('access_token', response.data.access_token)
@@ -74,12 +101,12 @@ export const tripsAPI = {
     return response.data
   },
   
-  create: async (tripData: any) => {
+  create: async (tripData: TripData) => {
     const response = await apiClient.post('/api/v1/trips', tripData)
     return response.data
   },
   
-  update: async (id: number, tripData: any) => {
+  update: async (id: number, tripData: Partial<TripData>) => {
     const response = await apiClient.put(`/api/v1/trips/${id}`, tripData)
     return response.data
   },
