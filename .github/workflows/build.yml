@@ -49,7 +49,7 @@ jobs:
 
       - name: Check Python syntax
         run: |
-          python -m py_compile *.py
+          python -m compileall .
 
       - name: Lint Python with flake8
         run: |
