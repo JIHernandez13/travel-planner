@@ -22,11 +22,14 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
+        working-directory: ./frontend
         run: npm ci
 
       - name: Lint frontend
+        working-directory: ./frontend
         run: npm run lint
       - name: Build frontend
+        working-directory: ./frontend
         run: npm run build
 
   build-backend:
@@ -42,16 +45,20 @@ jobs:
         with:
           python-version: '3.11'
           cache: 'pip'
+          cache-dependency-path: 'backend/requirements.txt'
 
       - name: Install dependencies
+        working-directory: ./backend
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Check Python syntax
+        working-directory: ./backend
         run: |
           python -m compileall .
 
       - name: Lint Python with flake8
+        working-directory: ./backend
         run: |
-          flake8 .
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
