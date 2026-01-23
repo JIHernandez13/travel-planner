@@ -1,5 +1,4 @@
 """Unit tests for database module"""
-import pytest
 from sqlalchemy.orm import Session
 
 
@@ -62,7 +61,6 @@ def test_session_local_factory(test_env):
 def test_database_pool_settings(test_env):
     """Test that pool settings are applied"""
     import os
-    from database import engine
 
     # Check that pool settings can be configured
     pool_size = int(os.getenv("DB_POOL_SIZE", "5"))

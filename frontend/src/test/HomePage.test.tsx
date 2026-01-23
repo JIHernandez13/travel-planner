@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import HomePage from '../HomePage'
 
 // Mock fetch
@@ -12,6 +11,7 @@ describe('HomePage Component', () => {
   })
 
   it('should render the page title', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(global.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
@@ -21,6 +21,7 @@ describe('HomePage Component', () => {
   })
 
   it('should render the tagline', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(global.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
@@ -30,6 +31,7 @@ describe('HomePage Component', () => {
   })
 
   it('should show checking status initially', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(global.fetch as any).mockImplementation(() => new Promise(() => {}))
 
     render(<HomePage />)
@@ -38,6 +40,7 @@ describe('HomePage Component', () => {
 
   it('should show connected status when API is reachable', async () => {
     const mockMessage = 'Welcome to Travel Planner API'
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(global.fetch as any).mockResolvedValue({
       json: async () => ({ message: mockMessage }),
     })
@@ -50,6 +53,7 @@ describe('HomePage Component', () => {
   })
 
   it('should show error status when API is not reachable', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(global.fetch as any).mockRejectedValue(new Error('Network error'))
 
     render(<HomePage />)
@@ -60,6 +64,7 @@ describe('HomePage Component', () => {
   })
 
   it('should render all feature cards', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(global.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
@@ -72,6 +77,7 @@ describe('HomePage Component', () => {
   })
 
   it('should render feature descriptions', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(global.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
@@ -84,6 +90,7 @@ describe('HomePage Component', () => {
   })
 
   it('should render Get Started button', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(global.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
@@ -94,6 +101,7 @@ describe('HomePage Component', () => {
   })
 
   it('should render welcome message', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(global.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
@@ -118,6 +126,7 @@ describe('HomePage Component', () => {
   })
 
   it('should have proper class names for styling', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(global.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })

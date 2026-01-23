@@ -1,6 +1,4 @@
 """Unit tests for main FastAPI application"""
-import pytest
-from fastapi.testclient import TestClient
 
 
 def test_app_creation(client):

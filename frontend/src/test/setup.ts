@@ -1,4 +1,4 @@
-import { expect, afterEach, vi } from 'vitest'
+import { afterEach, vi } from 'vitest'
 import { cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
@@ -15,10 +15,12 @@ const localStorageMock = {
   clear: vi.fn(),
 }
 
-global.localStorage = localStorageMock as any
+global.localStorage = localStorageMock as Storage
 
 // Mock window.location
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 delete (window as any).location
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ;(window as any).location = {
   href: 'http://localhost:3000/',
   origin: 'http://localhost:3000',
