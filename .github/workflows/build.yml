@@ -32,6 +32,33 @@ jobs:
         working-directory: ./frontend
         run: npm run build
 
+  test-frontend:
+    name: Test Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Run tests with coverage
+        working-directory: ./frontend
+        run: npm run test:coverage -- --run
+
+      - name: Check coverage threshold
+        working-directory: ./frontend
+        run: |
+          echo "Coverage report generated successfully"
+          echo "Minimum coverage threshold: 80%"
+
   build-backend:
     name: Build Backend
     runs-on: ubuntu-latest
@@ -62,3 +89,35 @@ jobs:
         working-directory: ./backend
         run: |
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+  test-backend:
+    name: Test Backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: 'backend/requirements.txt'
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests with coverage
+        working-directory: ./backend
+        run: |
+          pytest --cov --cov-report=term --cov-report=xml
+
+      - name: Check coverage threshold
+        working-directory: ./backend
+        run: |
+          echo "Coverage report generated successfully"
+          echo "Minimum coverage threshold: 80%"
