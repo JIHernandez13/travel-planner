@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import HomePage from '../HomePage'
 
 // Mock fetch
-global.fetch = vi.fn()
+globalThis.fetch = vi.fn() as typeof fetch
 
 describe('HomePage Component', () => {
   beforeEach(() => {
@@ -12,7 +12,7 @@ describe('HomePage Component', () => {
 
   it('should render the page title', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(global.fetch as any).mockResolvedValue({
+    ;(globalThis.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
 
@@ -22,7 +22,7 @@ describe('HomePage Component', () => {
 
   it('should render the tagline', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(global.fetch as any).mockResolvedValue({
+    ;(globalThis.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
 
@@ -32,7 +32,7 @@ describe('HomePage Component', () => {
 
   it('should show checking status initially', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(global.fetch as any).mockImplementation(() => new Promise(() => {}))
+    ;(globalThis.fetch as any).mockImplementation(() => new Promise(() => {}))
 
     render(<HomePage />)
     expect(screen.getByText(/Checking.../i)).toBeInTheDocument()
@@ -41,7 +41,7 @@ describe('HomePage Component', () => {
   it('should show connected status when API is reachable', async () => {
     const mockMessage = 'Welcome to Travel Planner API'
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(global.fetch as any).mockResolvedValue({
+    ;(globalThis.fetch as any).mockResolvedValue({
       json: async () => ({ message: mockMessage }),
     })
 
@@ -54,7 +54,7 @@ describe('HomePage Component', () => {
 
   it('should show error status when API is not reachable', async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(global.fetch as any).mockRejectedValue(new Error('Network error'))
+    ;(globalThis.fetch as any).mockRejectedValue(new Error('Network error'))
 
     render(<HomePage />)
 
@@ -65,7 +65,7 @@ describe('HomePage Component', () => {
 
   it('should render all feature cards', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(global.fetch as any).mockResolvedValue({
+    ;(globalThis.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
 
@@ -78,7 +78,7 @@ describe('HomePage Component', () => {
 
   it('should render feature descriptions', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(global.fetch as any).mockResolvedValue({
+    ;(globalThis.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
 
@@ -91,7 +91,7 @@ describe('HomePage Component', () => {
 
   it('should render Get Started button', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(global.fetch as any).mockResolvedValue({
+    ;(globalThis.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
 
@@ -102,7 +102,7 @@ describe('HomePage Component', () => {
 
   it('should render welcome message', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(global.fetch as any).mockResolvedValue({
+    ;(globalThis.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
 
@@ -115,7 +115,7 @@ describe('HomePage Component', () => {
     const mockFetch = vi.fn().mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
-    global.fetch = mockFetch
+    globalThis.fetch = mockFetch as typeof fetch
 
     render(<HomePage />)
 
@@ -127,7 +127,7 @@ describe('HomePage Component', () => {
 
   it('should have proper class names for styling', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(global.fetch as any).mockResolvedValue({
+    ;(globalThis.fetch as any).mockResolvedValue({
       json: async () => ({ message: 'API running' }),
     })
 

@@ -13,9 +13,11 @@ const localStorageMock = {
   setItem: vi.fn(),
   removeItem: vi.fn(),
   clear: vi.fn(),
+  length: 0,
+  key: vi.fn(),
 }
 
-global.localStorage = localStorageMock as Storage
+globalThis.localStorage = localStorageMock as unknown as Storage
 
 // Mock window.location
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
