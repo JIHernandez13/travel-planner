@@ -109,6 +109,25 @@ travel-planner/
 - Frontend runs on: `http://localhost:5173`
 - API docs: `http://localhost:8000/docs`
 
+## Testing
+
+This project includes comprehensive unit testing and coverage reporting for both backend and frontend.
+
+**Quick Start:**
+```bash
+# Backend tests
+cd backend && pytest --cov
+
+# Frontend tests
+cd frontend && npm run test:coverage
+```
+
+For detailed testing instructions, see [TESTING.md](./TESTING.md)
+
+**Test Coverage:**
+- Backend: 80% minimum coverage target
+- Frontend: 80% minimum coverage target
+
 ## Security Best Practices
 
 ### Authentication & Authorization
