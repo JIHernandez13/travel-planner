@@ -1,0 +1,18 @@
+[flake8]
+max-line-length = 100
+exclude =
+    __pycache__,
+    .git,
+    .venv,
+    venv,
+    htmlcov,
+    .pytest_cache,
+    *.egg-info,
+    build,
+    dist
+ignore =
+    # Ignore line break before binary operator (conflicts with black)
+    W503
+count = True
+statistics = True
+show-source = True

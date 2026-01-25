@@ -58,6 +58,9 @@ Thumbs.db
 .coverage
 htmlcov/
 .pytest_cache/
+coverage/
+coverage.xml
+*.lcov
 
 # Docker
 *.env.docker
