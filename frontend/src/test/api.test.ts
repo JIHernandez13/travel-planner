@@ -26,20 +26,13 @@ import { authAPI, tripsAPI } from '../api'
 
 // Get the mock instance
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mockAxiosInstance = (axios as any).mockAxiosInstance || {
-  post: vi.fn(),
-  get: vi.fn(),
-  put: vi.fn(),
-  delete: vi.fn(),
-}
+const mockAxiosInstance = (axios as any).mockAxiosInstance
 
 describe('API Module', () => {
   beforeEach(() => {
     // Clear all mocks before each test
     vi.clearAllMocks()
-    if (localStorage.clear) {
-      localStorage.clear()
-    }
+    localStorage.clear()
   })
 
   describe('authAPI', () => {

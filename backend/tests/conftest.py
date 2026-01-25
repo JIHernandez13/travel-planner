@@ -12,7 +12,7 @@ from sqlalchemy.pool import StaticPool
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def test_env():
     """Set up test environment variables"""
     os.environ["DATABASE_URL"] = "sqlite:///:memory:"
@@ -51,7 +51,7 @@ def db_session(test_env) -> Generator[Session, None, None]:
         Base.metadata.drop_all(bind=engine)
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def client(test_env) -> Generator[TestClient, None, None]:
     """Create a test client for the FastAPI app"""
     from main import app
