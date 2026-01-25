@@ -30,12 +30,25 @@ describe('HomePage Component', () => {
     expect(screen.getByText(/Plan your perfect trip/i)).toBeInTheDocument()
   })
 
-  it('should show checking status initially', () => {
+  it('should show checking status initially', async () => {
+    let resolveFetch: (value: any) => void
+    const pendingPromise = new Promise((resolve) => {
+      resolveFetch = resolve
+    })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(globalThis.fetch as any).mockImplementation(() => new Promise(() => {}))
+    ;(globalThis.fetch as any).mockReturnValue(pendingPromise)
 
     render(<HomePage />)
     expect(screen.getByText(/Checking.../i)).toBeInTheDocument()
+
+    // Resolve the pending fetch to avoid leaving an unresolved Promise after the test
+    resolveFetch!({
+      json: async () => ({ message: 'API running' }),
+    })
+
+    await waitFor(() => {
+      expect(globalThis.fetch).toHaveBeenCalled()
+    })
   })
 
   it('should show connected status when API is reachable', async () => {

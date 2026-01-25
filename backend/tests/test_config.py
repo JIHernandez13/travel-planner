@@ -1,5 +1,6 @@
 """Unit tests for configuration module"""
 import os
+import importlib
 
 
 def test_settings_default_values(test_env):
@@ -24,17 +25,21 @@ def test_settings_custom_values(test_env):
     os.environ["VERSION"] = "2.0.0"
     os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"] = "120"
 
-    from config import Settings
-    settings = Settings()
+    # Reload the config module to pick up the new environment variables
+    import config
+    importlib.reload(config)
 
-    assert settings.PROJECT_NAME == "Custom API"
-    assert settings.VERSION == "2.0.0"
-    assert settings.ACCESS_TOKEN_EXPIRE_MINUTES == 120
+    assert config.settings.PROJECT_NAME == "Custom API"
+    assert config.settings.VERSION == "2.0.0"
+    assert config.settings.ACCESS_TOKEN_EXPIRE_MINUTES == 120
 
     # Clean up
     del os.environ["PROJECT_NAME"]
     del os.environ["VERSION"]
     del os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"]
+
+    # Reload again to restore defaults
+    importlib.reload(config)
 
 
 def test_settings_allowed_origins(test_env):

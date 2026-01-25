@@ -58,18 +58,6 @@ def test_session_local_factory(test_env):
     session.close()
 
 
-def test_database_pool_settings(test_env):
-    """Test that pool settings are applied"""
-    import os
-
-    # Check that pool settings can be configured
-    pool_size = int(os.getenv("DB_POOL_SIZE", "5"))
-    max_overflow = int(os.getenv("DB_MAX_OVERFLOW", "10"))
-
-    assert pool_size >= 0
-    assert max_overflow >= 0
-
-
 def test_session_transaction_rollback(db_session):
     """Test that sessions can be rolled back"""
     from user import User

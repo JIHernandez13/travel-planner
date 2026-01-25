@@ -53,12 +53,6 @@ jobs:
         working-directory: ./frontend
         run: npm run test:coverage -- --run
 
-      - name: Check coverage threshold
-        working-directory: ./frontend
-        run: |
-          echo "Coverage report generated successfully"
-          echo "Minimum coverage threshold: 80%"
-
   build-backend:
     name: Build Backend
     runs-on: ubuntu-latest
@@ -115,9 +109,3 @@ jobs:
         working-directory: ./backend
         run: |
           pytest --cov --cov-report=term --cov-report=xml
-
-      - name: Check coverage threshold
-        working-directory: ./backend
-        run: |
-          echo "Coverage report generated successfully"
-          echo "Minimum coverage threshold: 80%"
