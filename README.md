@@ -2,6 +2,13 @@
 
 A modern web application for planning and organizing trips, built with a mobile-first mindset.
 
+## Documentation
+
+- [Testing Guide](./TESTING.md) - Comprehensive testing instructions
+- [Code Quality & Linting](./LINTING.md) - Linting and code formatting guide
+- [Deployment Guide](./DEPLOYMENT_GUIDE.md) - Production deployment instructions
+- [Getting Started](./GETTING_STARTED.md) - Quick start guide
+
 ## Tech Stack
 
 ### Backend
@@ -109,7 +116,28 @@ travel-planner/
 - Frontend runs on: `http://localhost:5173`
 - API docs: `http://localhost:8000/docs`
 
-## Testing
+## Code Quality
+
+### Linting
+
+This project uses linters to maintain code quality and consistency:
+- **Backend**: `flake8` for Python linting, `black` for code formatting
+- **Frontend**: ESLint for TypeScript/React linting
+
+**Run linters:**
+```bash
+# Check all code for lint errors
+./lint.sh
+
+# Auto-fix lint errors where possible
+./lint-fix.sh
+
+# Individual linting
+cd backend && python -m flake8 . --max-line-length=100
+cd frontend && npm run lint
+```
+
+### Testing
 
 This project includes comprehensive unit testing and coverage reporting for both backend and frontend.
 

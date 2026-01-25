@@ -27,6 +27,7 @@ def test_settings_custom_values(test_env):
 
     # Reload the config module to pick up the new environment variables
     import config
+
     importlib.reload(config)
 
     assert config.settings.PROJECT_NAME == "Custom API"
@@ -76,7 +77,7 @@ def test_settings_case_sensitive(test_env):
     settings = Settings()
 
     # The Config class has case_sensitive = True
-    assert hasattr(settings.Config, 'case_sensitive')
+    assert hasattr(settings.Config, "case_sensitive")
     assert settings.Config.case_sensitive is True
 
 

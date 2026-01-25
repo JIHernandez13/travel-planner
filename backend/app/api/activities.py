@@ -1,7 +1,5 @@
 """Activities API endpoints"""
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-from typing import List
+from fastapi import APIRouter
 
 router = APIRouter()
 
@@ -9,7 +7,7 @@ router = APIRouter()
 @router.get("/trip/{trip_id}")
 async def get_trip_activities(trip_id: int):
     """Get all activities for a specific trip
-    
+
     TODO: Implement activities listing
     - Validate user has access to trip
     - Query activities for trip
@@ -21,7 +19,7 @@ async def get_trip_activities(trip_id: int):
 @router.get("/{activity_id}")
 async def get_activity(activity_id: int):
     """Get a specific activity by ID
-    
+
     TODO: Implement activity retrieval
     - Validate user has access to activity
     - Query activity from database
@@ -33,7 +31,7 @@ async def get_activity(activity_id: int):
 @router.post("/trip/{trip_id}")
 async def create_activity(trip_id: int):
     """Create a new activity for a trip
-    
+
     TODO: Implement activity creation
     - Validate trip exists and user owns it
     - Validate activity data
@@ -46,7 +44,7 @@ async def create_activity(trip_id: int):
 @router.put("/{activity_id}")
 async def update_activity(activity_id: int):
     """Update an existing activity
-    
+
     TODO: Implement activity update
     - Validate user owns activity (through trip)
     - Update activity in database
@@ -58,7 +56,7 @@ async def update_activity(activity_id: int):
 @router.delete("/{activity_id}")
 async def delete_activity(activity_id: int):
     """Delete an activity
-    
+
     TODO: Implement activity deletion
     - Validate user owns activity (through trip)
     - Delete activity from database

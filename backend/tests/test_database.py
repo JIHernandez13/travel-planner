@@ -63,21 +63,13 @@ def test_session_transaction_rollback(db_session):
     from user import User
 
     # Create and commit a user first
-    user = User(
-        email="initial@test.com",
-        username="initialuser",
-        hashed_password="test_hash"
-    )
+    user = User(email="initial@test.com", username="initialuser", hashed_password="test_hash")
     db_session.add(user)
     db_session.commit()
 
     # Now test rollback with a nested transaction
     db_session.begin_nested()
-    user2 = User(
-        email="rollback@test.com",
-        username="rollbackuser",
-        hashed_password="test_hash"
-    )
+    user2 = User(email="rollback@test.com", username="rollbackuser", hashed_password="test_hash")
     db_session.add(user2)
     db_session.rollback()
 
@@ -95,11 +87,7 @@ def test_session_transaction_commit(db_session):
     from user import User
 
     # Add a test user
-    user = User(
-        email="commit@test.com",
-        username="commituser",
-        hashed_password="test_hash"
-    )
+    user = User(email="commit@test.com", username="commituser", hashed_password="test_hash")
     db_session.add(user)
     db_session.commit()
 

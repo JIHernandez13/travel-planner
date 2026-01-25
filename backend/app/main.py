@@ -1,18 +1,19 @@
 import sys
 from pathlib import Path
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 # Add parent directory to path to import config, database, etc.
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from config import settings
-from app.api import auth, trips, activities
+from config import settings  # noqa: E402
+from app.api import auth, trips, activities  # noqa: E402
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    description="Travel Planner API - Plan and organize your trips"
+    description="Travel Planner API - Plan and organize your trips",
 )
 
 # Configure CORS
@@ -31,7 +32,7 @@ async def root():
     return {
         "message": "Welcome to Travel Planner API",
         "version": settings.VERSION,
-        "status": "running"
+        "status": "running",
     }
 
 
@@ -42,9 +43,8 @@ async def health_check():
 
 
 # Include API routers
-app.include_router(auth.router, prefix=f"{settings.API_V1_PREFIX}/auth",
-                   tags=["authentication"])
-app.include_router(trips.router, prefix=f"{settings.API_V1_PREFIX}/trips",
-                   tags=["trips"])
-app.include_router(activities.router, prefix=f"{settings.API_V1_PREFIX}/activities",
-                   tags=["activities"])
+app.include_router(auth.router, prefix=f"{settings.API_V1_PREFIX}/auth", tags=["authentication"])
+app.include_router(trips.router, prefix=f"{settings.API_V1_PREFIX}/trips", tags=["trips"])
+app.include_router(
+    activities.router, prefix=f"{settings.API_V1_PREFIX}/activities", tags=["activities"]
+)

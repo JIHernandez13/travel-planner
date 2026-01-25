@@ -5,7 +5,7 @@ from config import settings
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    description="Travel Planner API - Plan and organize your trips"
+    description="Travel Planner API - Plan and organize your trips",
 )
 
 # Configure CORS
@@ -24,7 +24,7 @@ async def root():
     return {
         "message": "Welcome to Travel Planner API",
         "version": settings.VERSION,
-        "status": "running"
+        "status": "running",
     }
 
 

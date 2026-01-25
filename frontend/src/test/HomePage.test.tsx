@@ -31,8 +31,8 @@ describe('HomePage Component', () => {
   })
 
   it('should show checking status initially', async () => {
-    let resolveFetch: (value: any) => void
-    const pendingPromise = new Promise((resolve) => {
+    let resolveFetch: (value: Response) => void
+    const pendingPromise = new Promise<Response>((resolve) => {
       resolveFetch = resolve
     })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

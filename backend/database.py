@@ -8,9 +8,7 @@ import os
 # SQLite doesn't support pool_size and max_overflow
 if settings.DATABASE_URL.startswith("sqlite"):
     engine = create_engine(
-        settings.DATABASE_URL,
-        echo=settings.DEBUG,
-        connect_args={"check_same_thread": False}
+        settings.DATABASE_URL, echo=settings.DEBUG, connect_args={"check_same_thread": False}
     )
 else:
     engine = create_engine(
@@ -18,7 +16,7 @@ else:
         echo=settings.DEBUG,
         pool_pre_ping=True,
         pool_size=int(os.getenv("DB_POOL_SIZE", "5")),
-        max_overflow=int(os.getenv("DB_MAX_OVERFLOW", "10"))
+        max_overflow=int(os.getenv("DB_MAX_OVERFLOW", "10")),
     )
 
 # Create session factory

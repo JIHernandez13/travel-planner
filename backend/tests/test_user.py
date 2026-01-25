@@ -23,10 +23,7 @@ def test_user_model_required_fields(db_session):
     from sqlalchemy.exc import IntegrityError
 
     # Try to create user without email
-    user = User(
-        username="testuser",
-        hashed_password="test_hash"
-    )
+    user = User(username="testuser", hashed_password="test_hash")
     db_session.add(user)
 
     with pytest.raises(IntegrityError):
@@ -75,11 +72,7 @@ def test_user_default_values(db_session):
     """Test default values for User model"""
     from user import User
 
-    user = User(
-        email="default@test.com",
-        username="defaultuser",
-        hashed_password="test_hash"
-    )
+    user = User(email="default@test.com", username="defaultuser", hashed_password="test_hash")
     db_session.add(user)
     db_session.commit()
 
@@ -145,11 +138,7 @@ def test_user_full_name_optional(db_session):
     """Test that full_name is optional"""
     from user import User
 
-    user = User(
-        email="noname@test.com",
-        username="nonameuser",
-        hashed_password="test_hash"
-    )
+    user = User(email="noname@test.com", username="nonameuser", hashed_password="test_hash")
     db_session.add(user)
     db_session.commit()
 

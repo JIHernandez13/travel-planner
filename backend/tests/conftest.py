@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.pool import StaticPool
 
 # Add parent directory to path to import modules
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 @pytest.fixture(scope="function")
@@ -26,6 +26,7 @@ def db_session(test_env) -> Generator[Session, None, None]:
     """Create a test database session"""
     # Import here to ensure environment is set up first
     from database import Base
+
     # Import models to register them with Base
     import user  # noqa: F401
 
@@ -66,7 +67,8 @@ def sample_user_data():
     return {
         "email": "test@example.com",
         "username": "testuser",
-        "hashed_password": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYZ7WMuB15u",  # "password"
+        # "password"
+        "hashed_password": ("$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/" "LewY5GyYZ7WMuB15u"),
         "full_name": "Test User",
         "is_active": True,
         "is_superuser": False,

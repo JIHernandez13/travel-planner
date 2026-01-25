@@ -1,7 +1,5 @@
 """Trips API endpoints"""
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-from typing import List
+from fastapi import APIRouter
 
 router = APIRouter()
 
@@ -9,7 +7,7 @@ router = APIRouter()
 @router.get("/")
 async def get_all_trips():
     """Get all trips for the current user
-    
+
     TODO: Implement trips listing
     - Get current user from token
     - Query user's trips from database
@@ -21,7 +19,7 @@ async def get_all_trips():
 @router.get("/{trip_id}")
 async def get_trip(trip_id: int):
     """Get a specific trip by ID
-    
+
     TODO: Implement trip retrieval
     - Validate user has access to trip
     - Query trip from database
@@ -33,7 +31,7 @@ async def get_trip(trip_id: int):
 @router.post("/")
 async def create_trip():
     """Create a new trip
-    
+
     TODO: Implement trip creation
     - Validate trip data
     - Create trip in database
@@ -45,7 +43,7 @@ async def create_trip():
 @router.put("/{trip_id}")
 async def update_trip(trip_id: int):
     """Update an existing trip
-    
+
     TODO: Implement trip update
     - Validate user owns trip
     - Update trip in database
@@ -57,7 +55,7 @@ async def update_trip(trip_id: int):
 @router.delete("/{trip_id}")
 async def delete_trip(trip_id: int):
     """Delete a trip
-    
+
     TODO: Implement trip deletion
     - Validate user owns trip
     - Delete trip from database
