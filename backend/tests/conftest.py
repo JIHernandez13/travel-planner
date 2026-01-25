@@ -54,7 +54,7 @@ def db_session(test_env) -> Generator[Session, None, None]:
 @pytest.fixture(scope="function")
 def client(test_env) -> Generator[TestClient, None, None]:
     """Create a test client for the FastAPI app"""
-    from main import app
+    from app.main import app
 
     with TestClient(app) as test_client:
         yield test_client

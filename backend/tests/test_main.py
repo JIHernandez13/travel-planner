@@ -3,7 +3,7 @@
 
 def test_app_creation(client):
     """Test that the FastAPI app is created successfully"""
-    from main import app
+    from app.main import app
 
     assert app is not None
     assert app.title == "Travel Planner API"
@@ -35,7 +35,7 @@ def test_health_check_endpoint(client):
 
 def test_cors_middleware(test_env):
     """Test that CORS middleware is configured"""
-    from main import app
+    from app.main import app
 
     # Check that CORS middleware is added
     middlewares = [m for m in app.user_middleware]
@@ -44,7 +44,7 @@ def test_cors_middleware(test_env):
 
 def test_app_metadata(test_env):
     """Test FastAPI app metadata"""
-    from main import app
+    from app.main import app
 
     assert app.title == "Travel Planner API"
     assert app.version == "1.0.0"
