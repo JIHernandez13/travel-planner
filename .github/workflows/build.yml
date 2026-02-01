@@ -62,3 +62,11 @@ jobs:
         working-directory: ./backend
         run: |
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Run backend tests
+        working-directory: ./backend
+        env:
+          DATABASE_URL: sqlite:///test.db
+          SECRET_KEY: ci-test-secret-key
+        run: |
+          python -m pytest tests/ -v
