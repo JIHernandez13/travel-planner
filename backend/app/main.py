@@ -1,6 +1,14 @@
+import sys
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from config import settings
+
+# Add parent directory to path to import config, database, etc.
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from config import settings  # noqa: E402
+from app.api import auth, trips, activities  # noqa: E402
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -34,11 +42,9 @@ async def health_check():
     return {"status": "healthy"}
 
 
-# TODO: Import and include routers
-# from app.api import auth, trips, activities
-# app.include_router(auth.router, prefix="/api/v1/auth",
-#                    tags=["authentication"])
-# app.include_router(trips.router, prefix="/api/v1/trips",
-#                    tags=["trips"])
-# app.include_router(activities.router, prefix="/api/v1/activities",
-#                    tags=["activities"])
+# Include API routers
+app.include_router(auth.router, prefix=f"{settings.API_V1_PREFIX}/auth", tags=["authentication"])
+app.include_router(trips.router, prefix=f"{settings.API_V1_PREFIX}/trips", tags=["trips"])
+app.include_router(
+    activities.router, prefix=f"{settings.API_V1_PREFIX}/activities", tags=["activities"]
+)
