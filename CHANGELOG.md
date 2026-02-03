@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+- Alembic migrations framework initialized with env.py configured for app settings
+- Initial database migration for User table (create_users_table)
+
 ## [0.2.0] - 2026-02-03
 
 ### Added

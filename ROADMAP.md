@@ -1,7 +1,7 @@
 # Feature Roadmap
 
 > **Last updated**: 2026-02-03
-> **Current status**: Phase 1 — Foundation (~85% complete)
+> **Current status**: Phase 1 — Foundation (100% complete)
 
 ## Overview
 
@@ -45,8 +45,8 @@ The groundwork — project scaffolding, infrastructure, auth, and basic data mod
 - [x] pytest + pytest-asyncio + httpx installed
 - [x] Health endpoint tests (`test_health.py`)
 - [x] pytest integrated into CI pipeline
-- [ ] Alembic migrations initialized
-- [ ] Database migration for User table
+- [x] Alembic migrations initialized
+- [x] Database migration for User table
 
 ### Authentication ✅
 - [x] `POST /api/v1/auth/register` — user registration with validation
