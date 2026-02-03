@@ -1,16 +1,32 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from app.core.config import settings
+from config import settings
 import os
+
+# Build engine kwargs based on database type
+engine_kwargs = {
+    "echo": settings.DEBUG,
+}
+
+# SQLite does not support pool_size or pool_pre_ping
+if not settings.DATABASE_URL.startswith("sqlite"):
+    engine_kwargs["pool_pre_ping"] = True
+    engine_kwargs["pool_size"] = int(
+        os.getenv("DB_POOL_SIZE", "5")
+    )
+    engine_kwargs["max_overflow"] = int(
+        os.getenv("DB_MAX_OVERFLOW", "10")
+    )
+else:
+    engine_kwargs["connect_args"] = {
+        "check_same_thread": False
+    }
 
 # Create database engine with configurable pool settings
 engine = create_engine(
     settings.DATABASE_URL,
-    echo=settings.DEBUG,
-    pool_pre_ping=True,
-    pool_size=int(os.getenv("DB_POOL_SIZE", "5")),
-    max_overflow=int(os.getenv("DB_MAX_OVERFLOW", "10"))
+    **engine_kwargs
 )
 
 # Create session factory
