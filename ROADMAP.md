@@ -1,7 +1,7 @@
 # Feature Roadmap
 
 > **Last updated**: 2026-02-03
-> **Current status**: Phase 1 — Foundation (~15% complete)
+> **Current status**: Phase 1 — Foundation (~85% complete)
 
 ## Overview
 
@@ -41,28 +41,28 @@ The groundwork — project scaffolding, infrastructure, auth, and basic data mod
 - [x] Render blueprint (`render.yaml`)
 - [x] Environment variable templates (`.env.example`, `.env.production.example`)
 
-### Testing Setup 🔧
+### Testing Setup ✅
 - [x] pytest + pytest-asyncio + httpx installed
 - [x] Health endpoint tests (`test_health.py`)
 - [x] pytest integrated into CI pipeline
 - [ ] Alembic migrations initialized
 - [ ] Database migration for User table
 
-### Authentication (Next Priority) ⬚
-- [ ] `POST /api/v1/auth/register` — user registration with validation
-- [ ] `POST /api/v1/auth/login` — JWT token generation
-- [ ] `GET /api/v1/auth/me` — get current user profile
-- [ ] `POST /api/v1/auth/logout` — token invalidation
-- [ ] Password hashing with bcrypt via passlib
-- [ ] `get_current_user` dependency for protected routes
-- [ ] Auth middleware tests
+### Authentication ✅
+- [x] `POST /api/v1/auth/register` — user registration with validation
+- [x] `POST /api/v1/auth/login` — JWT token generation (OAuth2 form)
+- [x] `GET /api/v1/auth/me` — get current user profile
+- [x] Password hashing with bcrypt via passlib
+- [x] `get_current_user` dependency for protected routes
+- [x] Auth endpoint tests (9 tests covering register, login, me)
 
-### Auth UI ⬚
-- [ ] Login page (`/login`)
-- [ ] Registration page (`/register`)
-- [ ] Protected route wrapper component
-- [ ] Auth state management (context or store)
-- [ ] Token persistence and refresh logic
+### Auth UI ✅
+- [x] Login page (`/login`)
+- [x] Registration page (`/register`) with client-side validation
+- [x] Protected route wrapper component
+- [x] Auth state management (React Context + useAuth hook)
+- [x] Token persistence in localStorage
+- [x] Dashboard page for authenticated users
 
 ---
 

@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-02-03
+
+### Added
+- Authentication API endpoints: register, login, get current user
+- Pydantic schemas for auth request/response validation
+- Password hashing with bcrypt via passlib CryptContext
+- JWT access token creation and verification
+- OAuth2PasswordBearer dependency for protected routes
+- Login supports both username and email as identifier
+- Auth test suite (9 tests covering register, login, me endpoints)
+- React AuthContext with useAuth hook for auth state management
+- Login page with error handling and redirect
+- Registration page with client-side validation (email, password match, min length)
+- Protected route wrapper component using React Router Outlet
+- Dashboard page for authenticated users with user info display
+- QueryClientProvider setup with TanStack React Query
+
+### Fixed
+- Broken imports in database.py (was referencing non-existent app.core.config)
+- Broken imports in user.py (was referencing non-existent app.core.database)
+- SQLite compatibility in database.py for test environments
+- TypeScript include paths in tsconfig.json (was pointing to non-existent src/ dir)
+- Pinned bcrypt==4.0.1 to fix passlib compatibility
+
 ## [0.1.0] - 2025-01-01
 
 ### Added
