@@ -25,7 +25,8 @@ services:
       - key: REFRESH_TOKEN_EXPIRE_DAYS
         value: 7
     healthCheckPath: /health
-    autoDeploy: true
+    # Disabled: local development only for now. Flip to true when ready to deploy.
+    autoDeploy: false
 
   # Frontend Static Site
   - type: web
@@ -47,7 +48,8 @@ services:
       - path: /*
         name: X-Content-Type-Options
         value: nosniff
-    autoDeploy: true
+    # Disabled: local development only for now. Flip to true when ready to deploy.
+    autoDeploy: false
 
 databases:
   - name: travel-planner-db
