@@ -1,0 +1,35 @@
+# gitlint configuration
+# Lints git commit messages for style consistency.
+# Docs: https://jorisroovers.com/gitlint/latest/configuration/
+#
+# Run:
+#   gitlint                              lint the last commit
+#   gitlint --commits origin/main..HEAD  lint every commit on a branch
+#   git log -1 --format=%B | gitlint     lint an arbitrary message via stdin
+
+[general]
+# Skip auto-generated commits.
+ignore-merge-commits=true
+ignore-revert-commits=true
+ignore-fixup-commits=true
+ignore-squash-commits=true
+
+# Commit bodies are optional in this repo (many changes are small and
+# self-explanatory from the title).
+ignore=body-is-missing,body-min-length
+
+# Show the failing line and the rule that was violated.
+verbosity=3
+
+[title-max-length]
+line-length=72
+
+[title-min-length]
+min-length=8
+
+[body-max-line-length]
+# Allow long URLs and trailers (e.g. Co-Authored-By) without wrapping.
+line-length=100
+
+[title-must-not-contain-word]
+words=wip,todo,fixme

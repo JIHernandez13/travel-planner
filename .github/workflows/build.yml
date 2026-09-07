@@ -112,3 +112,25 @@ jobs:
           SECRET_KEY: ci-test-secret-key
         run: |
           pytest --cov --cov-report=term --cov-report=xml
+
+  lint-commits:
+    name: Lint Commit Messages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install gitlint
+        run: pip install gitlint==0.19.1
+
+      - name: Lint commit messages
+        run: |
+          gitlint --commits "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
