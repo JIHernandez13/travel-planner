@@ -21,4 +21,19 @@ npm run lint
 echo "✅ Frontend linting passed!"
 echo ""
 
+# Commit message linting
+echo "📝 Commit messages - Running gitlint..."
+cd ..
+if command -v gitlint >/dev/null 2>&1; then
+  if git rev-parse --verify --quiet origin/main >/dev/null; then
+    gitlint --commits "origin/main..HEAD"
+  else
+    gitlint
+  fi
+  echo "✅ Commit message linting passed!"
+else
+  echo "⏭️  gitlint not installed, skipping (pip install gitlint==0.19.1)"
+fi
+echo ""
+
 echo "🎉 All linting checks passed successfully!"

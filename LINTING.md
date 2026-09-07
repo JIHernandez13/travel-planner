@@ -21,6 +21,14 @@ Configuration files:
 - `frontend/eslint.config.js` - ESLint configuration
 - `frontend/package.json` - Contains lint script
 
+### Commit messages
+- **gitlint**: Checks git commit messages for style consistency (title length,
+  imperative-friendly length limits, trailing punctuation, no `WIP`/`TODO`/`FIXME`
+  in the title, body wrapping)
+
+Configuration file:
+- `.gitlint` - gitlint rules (repo root)
+
 ## Usage
 
 ### Quick Commands
@@ -59,6 +67,24 @@ npm run lint
 npm run lint -- --fix
 ```
 
+**Commit messages:**
+```bash
+# Install (bundled in backend/requirements.txt)
+pip install gitlint==0.19.1
+
+# Lint the most recent commit
+gitlint
+
+# Lint every commit on the current branch
+gitlint --commits origin/main..HEAD
+
+# Lint a message before committing
+git log -1 --format=%B | gitlint
+
+# Optional: install a local commit-msg hook so bad messages are rejected
+gitlint install-hook
+```
+
 ## What Gets Checked
 
 ### Backend (flake8)
@@ -76,6 +102,15 @@ npm run lint -- --fix
 - Import/export standards
 - Unused variables
 - Code complexity
+
+### Commit messages (gitlint)
+- Title length (max 72 chars) and minimum length (8 chars)
+- No trailing punctuation or whitespace in the title
+- No `WIP` / `TODO` / `FIXME` in the title
+- Blank line between title and body
+- Body lines wrapped at 100 chars
+- Valid author email
+- Merge / revert / fixup / squash commits are ignored
 
 ## What Gets Auto-Fixed
 
@@ -109,7 +144,14 @@ To add linting to your CI/CD pipeline:
 
 - name: Lint Frontend
   run: cd frontend && npm run lint
+
+- name: Lint Commit Messages
+  run: pip install gitlint==0.19.1 && gitlint --commits origin/main..HEAD
 ```
+
+The `Build` workflow (`.github/workflows/build.yml`) runs gitlint on every pull
+request via the `lint-commits` job, checking all commits between the PR base and
+head.
 
 ## Best Practices
 
