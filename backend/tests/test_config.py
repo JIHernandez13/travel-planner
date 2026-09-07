@@ -1,6 +1,6 @@
 """Unit tests for configuration module"""
-import os
 import importlib
+import os
 
 
 def test_settings_default_values(test_env):

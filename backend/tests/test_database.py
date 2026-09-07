@@ -30,7 +30,7 @@ def test_get_db_function(test_env):
 def test_base_declarative(test_env):
     """Test that Base is a valid declarative base"""
     from database import Base
-    from sqlalchemy.ext.declarative import DeclarativeMeta
+    from sqlalchemy.orm import DeclarativeMeta
 
     assert isinstance(Base, DeclarativeMeta)
 
