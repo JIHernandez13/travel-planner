@@ -1,12 +1,14 @@
+import sys
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from config import settings
-from database import Base, engine
-from router_auth import router as auth_router
+# Add parent directory to path to import config, database, etc.
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-# Create database tables on startup
-Base.metadata.create_all(bind=engine)
+from config import settings  # noqa: E402
+from app.api import auth, trips, activities  # noqa: E402
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -19,17 +21,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=[
-        "GET", "POST", "PUT", "DELETE", "OPTIONS",
-    ],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "Authorization"],
-)
-
-# Include auth router
-app.include_router(
-    auth_router,
-    prefix="/api/v1/auth",
-    tags=["authentication"],
 )
 
 
@@ -47,3 +40,11 @@ async def root():
 async def health_check():
     """Health check endpoint"""
     return {"status": "healthy"}
+
+
+# Include API routers
+app.include_router(auth.router, prefix=f"{settings.API_V1_PREFIX}/auth", tags=["authentication"])
+app.include_router(trips.router, prefix=f"{settings.API_V1_PREFIX}/trips", tags=["trips"])
+app.include_router(
+    activities.router, prefix=f"{settings.API_V1_PREFIX}/activities", tags=["activities"]
+)
