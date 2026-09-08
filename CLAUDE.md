@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-A full-stack travel planning application built with **FastAPI** (Python backend) and **React + TypeScript** (frontend). Currently in **Phase 1 - Foundation** (~15% complete). The app has project scaffolding, database setup, auth infrastructure, CI/CD pipelines, and deployment configs in place, but most feature endpoints and UI pages are still TODO.
+A full-stack travel planning application built with **FastAPI** (Python backend) and **React + TypeScript** (frontend). Currently in **Phase 1 - Foundation** (~15% complete). The app has project scaffolding, database setup, auth infrastructure, and a CI pipeline (lint + build + tests) in place, but most feature endpoints and UI pages are still TODO. Not deployed anywhere — local development only for now.
 
 ## Repository Structure
 
@@ -29,14 +29,10 @@ travel-planner/
 │   ├── eslint.config.js     # ESLint flat config
 │   ├── Dockerfile           # Nginx-based production image
 │   └── nginx.conf           # SPA routing, caching, security headers
-├── .github/workflows/        # CI/CD
-│   ├── build.yml            # PR checks: lint + build
-│   ├── deploy-backend.yml   # Railway auto-deploy
-│   ├── deploy-frontend.yml  # Vercel auto-deploy
-│   ├── deploy-render.yml    # Full-stack Render deploy
-│   └── manual-deploy.yml    # Manual deployment trigger
+├── .github/workflows/        # CI
+│   └── build.yml            # PR checks: lint + build + tests
 ├── docker-compose.yml        # Local dev: postgres + backend + frontend
-├── render.yaml               # Render platform blueprint
+├── render.yaml               # Render blueprint (dormant — autoDeploy disabled)
 ├── .flake8                   # Python linter config
 ├── .env.example              # Dev environment template
 └── .env.production.example   # Production environment template
@@ -125,18 +121,17 @@ cd backend && black .          # Auto-format Python code
 - CORS restricted to explicitly allowed origins
 - Health check endpoints: `GET /` and `GET /health` on backend
 
-## CI/CD Pipeline
+## CI Pipeline
 
 **On Pull Request** (build.yml):
-- Frontend: `npm ci` → `npm run lint` → `npm run build` (Node 18)
-- Backend: `pip install` → `python -m compileall` → `flake8` (Python 3.11)
+- Frontend: `npm ci` → `npm run lint` → `npm run build` → `npm run test:coverage` (Node 18)
+- Backend: `pip install` → `python -m compileall` → `flake8` → `pytest --cov` (Python 3.11)
 
-**On Push to main**:
-- Backend changes → Railway deploy (deploy-backend.yml)
-- Frontend changes → Vercel deploy (deploy-frontend.yml)
-- Full-stack → Render deploy (deploy-render.yml)
+All PRs must pass lint, build, and test checks before merge.
 
-All PRs must pass lint and build checks before merge.
+**Deployment**: None. This project is local-development only for now. The
+deploy workflows (Railway / Vercel / Render) were removed; `render.yaml`
+remains in the repo as a future starting point but has `autoDeploy: false`.
 
 ## Environment Variables
 
@@ -175,7 +170,7 @@ These call the backend at `VITE_API_URL` with automatic auth headers.
 
 ## What's Implemented vs TODO
 
-**Done**: Project scaffolding, Docker setup, database connection, User model, JWT config, Axios client with auth, CI/CD pipelines, deployment configs, health endpoints.
+**Done**: Project scaffolding, Docker setup, database connection, User model, JWT config, Axios client with auth, CI pipeline (lint + build + tests), health endpoints.
 
 **Not yet implemented**: Auth endpoints, database migrations, Trip/Activity models, CRUD API routes, frontend pages (Login, Register, Dashboard, TripDetail), component library, test suite, rate limiting, error handling middleware.
 
@@ -187,11 +182,16 @@ These call the backend at `VITE_API_URL` with automatic auth headers.
 
 ## Deployment
 
-Three deployment paths are configured:
+**Not deploying yet — local development only.** The CI/CD deploy workflows were
+removed on purpose. When the project is ready to ship, the leftover configs are
+a starting point:
 
-1. **Vercel (frontend) + Railway (backend)** — Separate platform deploys
-2. **Render** — Full-stack blueprint via `render.yaml`
-3. **Docker** — Self-hosted via `docker-compose.yml` and production Dockerfiles
+- `render.yaml` — full-stack Render blueprint (`autoDeploy: false`; flip to `true` and connect the repo as a Blueprint)
+- `backend/Dockerfile.prod`, `frontend/Dockerfile` + `nginx.conf` — production container images
+- `docker-compose.yml` — local orchestration (postgres + backend + frontend)
+
+Any new deploy automation needs its platform secrets configured in GitHub
+Actions first (that omission is what broke the old workflows).
 
 ## Important Files to Know
 
